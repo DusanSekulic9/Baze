@@ -10,16 +10,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 
-public class Gui extends JFrame {
+public class MainFrame extends JFrame {
 	
-	private static Gui instance;
-	private Gui() {
+	private static MainFrame instance;
+	private MainFrame() {
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = kit.getScreenSize();
 		int screenHeight = screenSize.height;
 		int screenWidth = screenSize.width;
 		setSize(screenWidth / 2, screenHeight / 2);
-		setTitle("Tim");
+		setTitle("Tim 2");
 		setLocationRelativeTo(null);
 
 		setSize(1200, 750);
@@ -46,9 +46,9 @@ public class Gui extends JFrame {
 
 	}
 	
-	public static Gui getInstance() {
+	public static MainFrame getInstance() {
 		if (instance == null) {
-			instance = new Gui();
+			instance = new MainFrame();
 			instance.dodajElemente();
 
 		}
