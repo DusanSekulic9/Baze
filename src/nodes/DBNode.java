@@ -4,9 +4,15 @@ import java.util.Enumeration;
 
 import javax.swing.tree.TreeNode;
 
-public class DBNode implements TreeNode {
+public abstract class DBNode implements TreeNode {
 
-	DBNode parent;
+	private String name;
+	private DBNode parent;
+	
+	public DBNode(String name, DBNode parent) {
+		this.name = name;
+		this.parent = parent;
+	}
 	
 	@Override
 	public Enumeration<? extends TreeNode> children() {
@@ -42,5 +48,19 @@ public class DBNode implements TreeNode {
 	public boolean isLeaf() {
 		return true;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setParent(DBNode parent) {
+		this.parent = parent;
+	}
+	
+	
 
 }
