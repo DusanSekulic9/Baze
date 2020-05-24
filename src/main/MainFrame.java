@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
 public class MainFrame extends JFrame {
@@ -34,12 +35,12 @@ public class MainFrame extends JFrame {
 
 		JPanel treePanel = new JPanel();
 		JPanel tabelePanel = new JPanel();
-
+		JTabbedPane tabovi = new JTabbedPane();
 		var tableUpScroll = new JScrollPane();
 		var tableDownScrooll = new JScrollPane();
 		JSplitPane splitTable = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tableUpScroll, tableDownScrooll);
 
-		JSplitPane splitGui = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treePanel, splitTable);
+		JSplitPane splitGui = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tabovi, splitTable);
 		this.add(splitGui, BorderLayout.CENTER);
 		splitGui.setDividerLocation(320);
 		splitGui.setDividerLocation(250);
