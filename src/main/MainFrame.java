@@ -2,10 +2,8 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Label;
 import java.awt.Toolkit;
 
-import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -16,6 +14,8 @@ import javax.swing.JTable;
 public class MainFrame extends JFrame {
 	
 	private static MainFrame instance;
+	private Tree workspaceTree;
+	
 	private MainFrame() {
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = kit.getScreenSize();
@@ -31,8 +31,10 @@ public class MainFrame extends JFrame {
 	}
 
 	public void dodajElemente() {
+		this.workspaceTree = new Tree();
+		//this.treeModel = new TreeModel();
+		//workspaceTree.setModel(treeModel);
 		
-		JDesktopPane dekstop = new JDesktopPane();
 		Object[] columns = new Object[] { "Dosije", "Ime", "Prezime" };
 
 		Object[][] data = { { "ra1/2011", "Petar", "Petroviæ" },
@@ -46,7 +48,7 @@ public class MainFrame extends JFrame {
 		JTable tblUp = new JTable(data, columns);
 		JTable tblDown = new JTable(data, columns);
 		
-		JPanel treePanel = new JPanel();
+		JScrollPane treeScroll = new JScrollPane(workspaceTree);
 		
 		JTabbedPane taboviGore = new JTabbedPane();
 		JTabbedPane taboviDole = new JTabbedPane();
@@ -57,7 +59,7 @@ public class MainFrame extends JFrame {
 		//panelZaTabove.add(tableUpScroll);
 		JSplitPane splitTable = new JSplitPane(JSplitPane.VERTICAL_SPLIT, taboviGore, taboviDole);
 
-		JSplitPane splitGui = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treePanel, splitTable);
+		JSplitPane splitGui = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScroll, splitTable);
 		this.add(splitGui, BorderLayout.CENTER);
 		splitGui.setDividerLocation(320);
 		splitGui.setDividerLocation(250);
@@ -73,4 +75,14 @@ public class MainFrame extends JFrame {
 		}
 		return instance;
 	}
+
+	public Tree getWorkspaceTree() {
+		return workspaceTree;
+	}
+
+	public void setWorkspaceTree(Tree workspaceTree) {
+		this.workspaceTree = workspaceTree;
+	}
+	
+	
 }
