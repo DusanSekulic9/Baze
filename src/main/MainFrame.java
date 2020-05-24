@@ -33,11 +33,19 @@ public class MainFrame extends JFrame {
 	public void dodajElemente() {
 		
 		JDesktopPane dekstop = new JDesktopPane();
-		
-		
-		JTable tblUp = new JTable();
-		JTable tblDown = new JTable();
+		Object[] columns = new Object[] { "Dosije", "Ime", "Prezime" };
 
+		Object[][] data = { { "ra1/2011", "Petar", "Petroviæ" },
+				{ "ra1/2011", "Lazar", "Laziæ" },
+				{ "ra2/2011", "Milan", "Kovaèeviæ" },
+				{ "ra3/2011", "Ana", "Petroviæ" },
+				{ "ra4/2011", "Bojan", "Bakiæ" },
+				{ "ra5/2011", "Dragan", "Kovaèeviæ" },
+				{ "ra6/2011", "Ivan", "Iviæ" } };
+		
+		JTable tblUp = new JTable(data, columns);
+		JTable tblDown = new JTable(data, columns);
+		
 		JPanel treePanel = new JPanel();
 		JPanel tabelePanel = new JPanel();
 		JPanel novi = new JPanel();
@@ -48,9 +56,9 @@ public class MainFrame extends JFrame {
 		tabovi.add(novi);
 		var tableUpScroll = new JScrollPane();
 		var tableDownScrooll = new JScrollPane();
-		JSplitPane splitTable = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tableUpScroll, tableDownScrooll);
+		JSplitPane splitTable = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tabovi, tableDownScrooll);
 
-		JSplitPane splitGui = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tabovi, splitTable);
+		JSplitPane splitGui = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treePanel, splitTable);
 		this.add(splitGui, BorderLayout.CENTER);
 		splitGui.setDividerLocation(320);
 		splitGui.setDividerLocation(250);
