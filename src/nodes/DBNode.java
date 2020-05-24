@@ -61,6 +61,9 @@ public abstract class DBNode implements TreeNode {
 		this.parent = parent;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return name;
+	}
 
 }

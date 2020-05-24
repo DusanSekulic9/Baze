@@ -11,10 +11,13 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
+import model.DataBaseModel;
+
 public class MainFrame extends JFrame {
 	
 	private static MainFrame instance;
 	private Tree workspaceTree;
+	private DataBaseModel dataBaseModel = new DataBaseModel();
 	
 	private MainFrame() {
 		Toolkit kit = Toolkit.getDefaultToolkit();
@@ -33,7 +36,7 @@ public class MainFrame extends JFrame {
 	public void dodajElemente() {
 		this.workspaceTree = new Tree();
 		//this.treeModel = new TreeModel();
-		//workspaceTree.setModel(treeModel);
+		workspaceTree.setModel(dataBaseModel);
 		
 		Object[] columns = new Object[] { "Dosije", "Ime", "Prezime" };
 
