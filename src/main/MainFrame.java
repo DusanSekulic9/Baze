@@ -47,21 +47,21 @@ public class MainFrame extends JFrame {
 		JTable tblDown = new JTable(data, columns);
 		
 		JPanel treePanel = new JPanel();
-		JPanel tabelePanel = new JPanel();
-		JPanel novi = new JPanel();
 		
-		JTabbedPane tabovi = new JTabbedPane();
-		tabelePanel.add(tabovi);
-		novi.add(new Label("dadada"));
-		tabovi.add(novi);
-		var tableUpScroll = new JScrollPane();
-		var tableDownScrooll = new JScrollPane();
-		JSplitPane splitTable = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tabovi, tableDownScrooll);
+		JTabbedPane taboviGore = new JTabbedPane();
+		JTabbedPane taboviDole = new JTabbedPane();
+		JScrollPane tableUpScroll = new JScrollPane(tblUp);
+		JScrollPane tableDownScrooll = new JScrollPane(tblDown);
+		taboviGore.addTab("prvi tab", tableUpScroll);
+		taboviDole.addTab("prvi tab", tableDownScrooll);
+		//panelZaTabove.add(tableUpScroll);
+		JSplitPane splitTable = new JSplitPane(JSplitPane.VERTICAL_SPLIT, taboviGore, taboviDole);
 
 		JSplitPane splitGui = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treePanel, splitTable);
 		this.add(splitGui, BorderLayout.CENTER);
 		splitGui.setDividerLocation(320);
 		splitGui.setDividerLocation(250);
+		splitTable.setDividerLocation(350);
 
 	}
 	
