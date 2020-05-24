@@ -2,8 +2,10 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Label;
 import java.awt.Toolkit;
 
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,13 +31,21 @@ public class MainFrame extends JFrame {
 	}
 
 	public void dodajElemente() {
-
+		
+		JDesktopPane dekstop = new JDesktopPane();
+		
+		
 		JTable tblUp = new JTable();
 		JTable tblDown = new JTable();
 
 		JPanel treePanel = new JPanel();
 		JPanel tabelePanel = new JPanel();
+		JPanel novi = new JPanel();
+		
 		JTabbedPane tabovi = new JTabbedPane();
+		tabelePanel.add(tabovi);
+		novi.add(new Label("dadada"));
+		tabovi.add(novi);
 		var tableUpScroll = new JScrollPane();
 		var tableDownScrooll = new JScrollPane();
 		JSplitPane splitTable = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tableUpScroll, tableDownScrooll);
