@@ -2,26 +2,28 @@ package action;
 
 public class SveAkcije {
 	
-	private CommitAction commit;
+	private Pretraga pretraga;
 	private AddAction add;
 	private DeleteAction delete;
 	private FilterAndSortAction fAndS;
 	private RefreshAction refresh;
+	private Izvestaj izvestaj;
 	
 	public SveAkcije() {
-		commit = new CommitAction();
+		pretraga = new Pretraga();
 		add = new AddAction();
 		delete = new DeleteAction();
 		fAndS = new FilterAndSortAction();
 		refresh = new RefreshAction();
+		izvestaj = new Izvestaj();
 	}
 
-	public CommitAction getCommit() {
-		return commit;
+	public Pretraga getCommit() {
+		return pretraga;
 	}
 
-	public void setCommit(CommitAction commit) {
-		this.commit = commit;
+	public void setCommit(Pretraga pretraga) {
+		this.pretraga = pretraga;
 	}
 
 	public AddAction getAdd() {
@@ -54,6 +56,22 @@ public class SveAkcije {
 
 	public void setRefresh(RefreshAction refresh) {
 		this.refresh = refresh;
+	}
+
+	public Pretraga getPretraga() {
+		return pretraga;
+	}
+
+	public void setPretraga(Pretraga pretraga) {
+		this.pretraga = pretraga;
+	}
+
+	public Izvestaj getIzvestaj() {
+		return izvestaj;
+	}
+
+	public void setIzvestaj(Izvestaj izvestaj) {
+		this.izvestaj = izvestaj;
 	}
 	
 	

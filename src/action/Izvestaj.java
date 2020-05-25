@@ -8,7 +8,7 @@ import javax.swing.KeyStroke;
 
 import main.MainFrame;
 
-public class CommitAction  extends Akcija{
+public class Izvestaj extends Akcija{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -16,7 +16,7 @@ public class CommitAction  extends Akcija{
 		
 	}
 
-	public CommitAction() {
+	public Izvestaj() {
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_K, ActionEvent.CTRL_MASK));
 		putValue(SMALL_ICON, ucitajIkonicu("src/app/view/images/exit.png"));
 		putValue(NAME, "Exit");

@@ -37,6 +37,7 @@ public class MainFrame extends JFrame {
 	}
 
 	public void dodajElemente() {
+		JPanel panel = new JPanel();
 		akcije = new SveAkcije();
 		tBar = new ToolBar();
 		this.add(tBar, BorderLayout.NORTH);
@@ -65,9 +66,11 @@ public class MainFrame extends JFrame {
 		taboviGore.addTab("prvi tab", tableUpScroll);
 		taboviDole.addTab("prvi tab", tableDownScrooll);
 		//panelZaTabove.add(tableUpScroll);
+		
 		JSplitPane splitTable = new JSplitPane(JSplitPane.VERTICAL_SPLIT, taboviGore, taboviDole);
-
-		JSplitPane splitGui = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScroll, splitTable);
+		panel.add(tBar);
+		panel.add(splitTable);
+		JSplitPane splitGui = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, treeScroll, panel);
 		this.add(splitGui, BorderLayout.CENTER);
 		splitGui.setDividerLocation(320);
 		splitGui.setDividerLocation(250);

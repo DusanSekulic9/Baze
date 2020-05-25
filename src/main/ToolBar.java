@@ -10,7 +10,9 @@ public class ToolBar extends JToolBar{
 	private JButton btnDelete;
 	private JButton btnFAndS;
 	private JButton btnRefresh;
-	
+	private JButton btnIzvestaj;
+	private JButton btnPretraga
+	;
 	public ToolBar() {
 		super(SwingConstants.HORIZONTAL);
 
@@ -18,7 +20,8 @@ public class ToolBar extends JToolBar{
 		add(MainFrame.getInstance().getAkcije().getDelete());
 		add(MainFrame.getInstance().getAkcije().getfAndS());
 		add(MainFrame.getInstance().getAkcije().getRefresh());
-
+		add(MainFrame.getInstance().getAkcije().getIzvestaj());
+		add(MainFrame.getInstance().getAkcije().getPretraga());
 		addSeparator();
 	}
 
@@ -52,6 +55,22 @@ public class ToolBar extends JToolBar{
 
 	public void setBtnRefresh(JButton btnRefresh) {
 		this.btnRefresh = btnRefresh;
+	}
+
+	public JButton getBtnIzvestaj() {
+		return btnIzvestaj;
+	}
+
+	public void setBtnIzvestaj(JButton btnIzvestaj) {
+		this.btnIzvestaj = btnIzvestaj;
+	}
+
+	public JButton getBtnPretraga() {
+		return btnPretraga;
+	}
+
+	public void setBtnPretraga(JButton btnPretraga) {
+		this.btnPretraga = btnPretraga;
 	}
 	
 	
