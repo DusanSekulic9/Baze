@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
 		this.add(tBar, BorderLayout.NORTH);
 		this.workspaceTree = new Tree();
 		//this.treeModel = new TreeModel();
-		workspaceTree.setModel(AppCore.getDataBaseModel());
+		workspaceTree.setModel(new DataBaseModel());
 		
 		Object[] columns = new Object[] { "Dosije", "Ime", "Prezime" };
 

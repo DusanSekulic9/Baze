@@ -15,6 +15,11 @@ public abstract class DBNodeComposite extends DBNode{
 		this.children = new ArrayList<DBNode>();
 	}
 	
+	public DBNodeComposite(String name) {
+		super(name);
+		this.children = new ArrayList<DBNode>();
+	}
+	
 	@Override
 	public boolean getAllowsChildren() {
 		return true;

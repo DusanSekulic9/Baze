@@ -14,6 +14,10 @@ public abstract class DBNode implements TreeNode {
 		this.parent = parent;
 	}
 	
+	public DBNode(String name) {
+		this.name = name;
+	}
+	
 	@Override
 	public Enumeration<? extends TreeNode> children() {
 		return null;

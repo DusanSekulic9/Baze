@@ -10,7 +10,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 
 import model.Attribute;
 import model.AttributeConstraint;
-import model.DataBaseNode;
+import model.InformationResource;
 import model.Entity;
 
 public class TreeNodeRenderer extends DefaultTreeCellRenderer {
@@ -24,7 +24,7 @@ public class TreeNodeRenderer extends DefaultTreeCellRenderer {
 			int row, boolean hasFocus) {
 		super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
 
-		if (value instanceof DataBaseNode) {
+		if (value instanceof InformationResource) {
 			URL imageURL = getClass().getResource("images/tdiagram.gif");
 			Icon icon = null;
 			if (imageURL != null)
