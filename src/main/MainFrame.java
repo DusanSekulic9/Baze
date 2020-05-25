@@ -5,18 +5,22 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
+import action.SveAkcije;
 import model.DataBaseModel;
 
 public class MainFrame extends JFrame {
 	
 	private static MainFrame instance;
 	private Tree workspaceTree;
+	private SveAkcije akcije;
+	private ToolBar tBar;
 	
 	private MainFrame() {
 		Toolkit kit = Toolkit.getDefaultToolkit();
@@ -33,6 +37,9 @@ public class MainFrame extends JFrame {
 	}
 
 	public void dodajElemente() {
+		akcije = new SveAkcije();
+		tBar = new ToolBar();
+		this.add(tBar, BorderLayout.NORTH);
 		this.workspaceTree = new Tree();
 		//this.treeModel = new TreeModel();
 		workspaceTree.setModel(AppCore.getDataBaseModel());
@@ -49,7 +56,6 @@ public class MainFrame extends JFrame {
 		
 		JTable tblUp = new JTable(data, columns);
 		JTable tblDown = new JTable(data, columns);
-		
 		JScrollPane treeScroll = new JScrollPane(workspaceTree);
 		
 		JTabbedPane taboviGore = new JTabbedPane();
@@ -84,6 +90,22 @@ public class MainFrame extends JFrame {
 
 	public void setWorkspaceTree(Tree workspaceTree) {
 		this.workspaceTree = workspaceTree;
+	}
+
+	public SveAkcije getAkcije() {
+		return akcije;
+	}
+
+	public void setAkcije(SveAkcije akcije) {
+		this.akcije = akcije;
+	}
+
+	public ToolBar gettBar() {
+		return tBar;
+	}
+
+	public void settBar(ToolBar tBar) {
+		this.tBar = tBar;
 	}
 	
 	
