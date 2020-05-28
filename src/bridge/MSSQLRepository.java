@@ -8,10 +8,13 @@ import bridge.settings.Settings;
 import data.Constants;
 import data.Row;
 import enums.AttributeType;
+import enums.ConstraintType;
 import model.Attribute;
+import model.AttributeConstraint;
 import model.Entity;
 import model.InformationResource;
 import nodes.DBNode;
+import nodes.DBNodeComposite;
 
 public class MSSQLRepository implements Repository{
 	
@@ -70,21 +73,43 @@ public class MSSQLRepository implements Repository{
 
                     String columnName = columns.getString("COLUMN_NAME");
                     String columnType = columns.getString("TYPE_NAME");
+                    String isNullable = columns.getString("IS_NULLABLE");
+                    String hasDefault = columns.getString("COLUMN_DEF");
                     int columnSize = Integer.parseInt(columns.getString("COLUMN_SIZE"));
-                    Attribute attribute = new Attribute(columnName, newTable, AttributeType.valueOf(columnType.toUpperCase()), columnSize);
+                    Attribute attribute = new Attribute(columnName, newTable, AttributeType.valueOf(columnType.toUpperCase()), columnSize, isNullable);
+                    if(hasDefault != null) {
+                    	attribute.addNode(new AttributeConstraint("IS_DEFAULT", attribute, ConstraintType.DEFAULT_VALUE));
+                    }
                     newTable.addNode(attribute);
-
+                    //domain value
                 }
-
+                
+                //TODO Ogranicenja nad kolonama? Relacije?
+                ResultSet primaryKeys = metaData.getPrimaryKeys(connection.getCatalog(), null, tableName);
+                while(primaryKeys.next()) {
+                	String name = primaryKeys.getString("COLUMN_NAME");
+                	for(DBNode node : newTable.getChildren()) {
+                		if(name.equalsIgnoreCase(node.getName())) {
+                			DBNodeComposite nc = (DBNodeComposite) node;
+                			nc.addNode(new AttributeConstraint("PRIMARY_KEY", nc, ConstraintType.PRIMARY_KEY));
+                		}
+                	}
+                }
+                
+                ResultSet foreignKeys = metaData.getImportedKeys(connection.getCatalog(), null, tableName);
+                while(foreignKeys.next()) {
+                	String fkTableName = foreignKeys.getString("FKTABLE_NAME");
+                	String fkColumnName = foreignKeys.getString("FKCOLUMN_NAME");
+                	String pkTableName = foreignKeys.getString("PKTABLE_NAME");
+                	String pkColumnName = foreignKeys.getString("PKCOLUMN_NAME");
+                }
+                
+                 
+                
             }
 
-
-            //TODO Ogranicenja nad kolonama? Relacije?
-
             return ir;
-            // String isNullable = columns.getString("IS_NULLABLE");
-            // ResultSet foreignKeys = metaData.getImportedKeys(connection.getCatalog(), null, table.getName());
-            // ResultSet primaryKeys = metaData.getPrimaryKeys(connection.getCatalog(), null, table.getName());
+           
 
         }
         catch (Exception e) {
