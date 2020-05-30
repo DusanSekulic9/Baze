@@ -70,7 +70,7 @@ public class MainFrame extends JFrame implements Subscriber,MouseListener {
 
 		JScrollPane tableUpScroll = new JScrollPane(tblUp);
 		JScrollPane tableDownScrooll = new JScrollPane(tblDown);
-		taboviGore.addTab("prvi tab", tableUpScroll);
+		taboviGore.addTab(tblUp.getName(), tableUpScroll);
 		taboviDole.addTab("prvi tab", tableDownScrooll);
 		// panelZaTabove.add(tableUpScroll);
 
