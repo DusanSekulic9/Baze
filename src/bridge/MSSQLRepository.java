@@ -95,19 +95,46 @@ public class MSSQLRepository implements Repository{
                 		}
                 	}
                 }
-                
-                ResultSet foreignKeys = metaData.getImportedKeys(connection.getCatalog(), null, tableName);
-                while(foreignKeys.next()) {
-                	String fkTableName = foreignKeys.getString("FKTABLE_NAME");
-                	String fkColumnName = foreignKeys.getString("FKCOLUMN_NAME");
-                	String pkTableName = foreignKeys.getString("PKTABLE_NAME");
-                	String pkColumnName = foreignKeys.getString("PKCOLUMN_NAME");
-                }
-                
-                 
-                
             }
-
+            for(DBNode table : ir.getChildren()) {
+            	ResultSet foreignKeys = metaData.getImportedKeys(connection.getCatalog(), null, table.getName());
+            	while(foreignKeys.next()) {
+            		String fkTableName = foreignKeys.getString("FKTABLE_NAME");
+            		String fkColumnName = foreignKeys.getString("FKCOLUMN_NAME");
+            		String pkTableName = foreignKeys.getString("PKTABLE_NAME");
+            		String pkColumnName = foreignKeys.getString("PKCOLUMN_NAME");
+            		Entity tabela = (Entity) table;
+            		Attribute attribute1 = null;
+            		for(DBNode child : tabela.getChildren()) {
+            			if(child.getName().equalsIgnoreCase(fkColumnName)) {
+            				attribute1 = (Attribute) child;
+            				break;
+            			}
+            		}
+            		System.out.println(attribute1);
+            		Entity tabela2 = null;
+            		for(DBNode table2 : ir.getChildren()) {
+            			if(table2.getName().equalsIgnoreCase(pkTableName)) {
+            				tabela2 = (Entity) table2;
+            				break;
+            			}
+            		}
+            		System.out.println(tabela2);
+            		Attribute attribute2 = null;
+            		for(DBNode child : tabela2.getChildren()) {
+            			if(child.getName().equalsIgnoreCase(pkColumnName)) {
+            				attribute2 = (Attribute) child;
+            				break;
+            			}
+            		}
+            		System.out.println(attribute2);
+            		attribute1.getRelations().add(attribute2);
+            		attribute2.getRelations().add(attribute1);
+            		attribute1.addNode(new AttributeConstraint("FOREIGN_KEY", attribute1, ConstraintType.FOREIGN_KEY));
+            		
+            		
+            	}
+            }
             return ir;
            
 

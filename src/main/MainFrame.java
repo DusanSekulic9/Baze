@@ -17,13 +17,13 @@ import model.DataBaseModel;
 import observer.NotificationCode;
 import observer.Subscriber;
 
-public class MainFrame extends JFrame implements Subscriber{
-	
+public class MainFrame extends JFrame implements Subscriber {
+
 	private static MainFrame instance;
 	private Tree workspaceTree;
 	private SveAkcije akcije;
 	private ToolBar tBar;
-	
+
 	private MainFrame() {
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = kit.getScreenSize();
@@ -45,31 +45,28 @@ public class MainFrame extends JFrame implements Subscriber{
 		tBar = new ToolBar();
 		this.add(tBar, BorderLayout.NORTH);
 		this.workspaceTree = new Tree();
-		//this.treeModel = new TreeModel();
+		// this.treeModel = new TreeModel();
 		workspaceTree.setModel(new DataBaseModel());
-		
+
 		Object[] columns = new Object[] { "Dosije", "Ime", "Prezime" };
 
-		Object[][] data = { { "ra1/2011", "Petar", "Petroviæ" },
-				{ "ra1/2011", "Lazar", "Laziæ" },
-				{ "ra2/2011", "Milan", "Kovaèeviæ" },
-				{ "ra3/2011", "Ana", "Petroviæ" },
-				{ "ra4/2011", "Bojan", "Bakiæ" },
-				{ "ra5/2011", "Dragan", "Kovaèeviæ" },
+		Object[][] data = { { "ra1/2011", "Petar", "Petroviæ" }, { "ra1/2011", "Lazar", "Laziæ" },
+				{ "ra2/2011", "Milan", "Kovaèeviæ" }, { "ra3/2011", "Ana", "Petroviæ" },
+				{ "ra4/2011", "Bojan", "Bakiæ" }, { "ra5/2011", "Dragan", "Kovaèeviæ" },
 				{ "ra6/2011", "Ivan", "Iviæ" } };
-		
+
 		JTable tblUp = new JTable(data, columns);
 		JTable tblDown = new JTable(data, columns);
 		JScrollPane treeScroll = new JScrollPane(workspaceTree);
-		
+
 		JTabbedPane taboviGore = new JTabbedPane();
 		JTabbedPane taboviDole = new JTabbedPane();
 		JScrollPane tableUpScroll = new JScrollPane(tblUp);
 		JScrollPane tableDownScrooll = new JScrollPane(tblDown);
 		taboviGore.addTab("prvi tab", tableUpScroll);
 		taboviDole.addTab("prvi tab", tableDownScrooll);
-		//panelZaTabove.add(tableUpScroll);
-		
+		// panelZaTabove.add(tableUpScroll);
+
 		JSplitPane splitTable = new JSplitPane(JSplitPane.VERTICAL_SPLIT, taboviGore, taboviDole);
 		panel.add(tBar, BorderLayout.NORTH);
 		panel.add(splitTable, BorderLayout.CENTER);
@@ -80,7 +77,7 @@ public class MainFrame extends JFrame implements Subscriber{
 		splitTable.setDividerLocation(350);
 
 	}
-	
+
 	public static MainFrame getInstance() {
 		if (instance == null) {
 			instance = new MainFrame();
@@ -117,15 +114,12 @@ public class MainFrame extends JFrame implements Subscriber{
 	@Override
 	public void update(Object notification) {
 //		if (notification.getCode() == NotificationCode.RESOURCE_LOADED){
-  //          System.out.println((InformationResource)notification.getData());
-    //    }
+		// System.out.println((InformationResource)notification.getData());
+		// }
 
-      //  else{
-        //    jTable.setModel((TableModel) notification.getData());
-        //}
+		// else{
+		// jTable.setModel((TableModel) notification.getData());
+		// }
 
-    }
 	}
-	
-	
 }

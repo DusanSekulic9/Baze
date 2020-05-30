@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import enums.AttributeType;
 import enums.ConstraintType;
 import nodes.DBNode;
@@ -9,7 +11,7 @@ public class Attribute extends DBNodeComposite{
 	
 	private AttributeType attributeType;
 	private int length;
-	private Attribute relation;
+	private ArrayList<Attribute> relations = new ArrayList<Attribute>();
 
 	public Attribute(String name, DBNode parent) {
 		super(name, parent);
@@ -31,14 +33,12 @@ public class Attribute extends DBNodeComposite{
 	public int getLength() {
 		return length;
 	}
-	
-	public Attribute getRelation() {
-		return relation;
+
+	public ArrayList<Attribute> getRelations() {
+		return relations;
 	}
 	
-	public void setRelation(Attribute relation) {
-		this.relation = relation;
-	}
+	
 	
 	
 	
