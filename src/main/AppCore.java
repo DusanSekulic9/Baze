@@ -23,7 +23,6 @@ public class AppCore {
 		this.database = new DatabaseImplementation(new MSSQLRepository(this.settings));
 		this.tableModel = new TableModel();
 		loadResource();
-		readAllData();
 	}
 
 	private Settings initSettings() {
@@ -60,10 +59,6 @@ public class AppCore {
 		return ir;
 	}
 	
-	public void readAllData() {
-		for(DBNode node : ir.getChildren()) {
-			readDataFromTable(node.getName());
-		}
-	}
+
 
 }

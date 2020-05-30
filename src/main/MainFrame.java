@@ -13,10 +13,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
 
 import action.SveAkcije;
+import gui.TableModel;
 import model.DataBaseModel;
 import observer.NotificationCode;
 import observer.Subscriber;
@@ -29,6 +28,7 @@ public class MainFrame extends JFrame implements Subscriber,MouseListener {
 	private ToolBar tBar;
 	private JTable tblUp;
 	private JTable tblDown;
+	
 	private MainFrame() {
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = kit.getScreenSize();
@@ -40,7 +40,6 @@ public class MainFrame extends JFrame implements Subscriber,MouseListener {
 
 		setSize(1200, 750);
 		setLocationRelativeTo(null);
-
 	}
 
 	public void dodajElemente() {
@@ -50,7 +49,7 @@ public class MainFrame extends JFrame implements Subscriber,MouseListener {
 		tBar = new ToolBar();
 		tblUp = new JTable();
 		tblDown = new JTable();
-		tblUp.setModel(new gui.TableModel());
+		tblUp.setModel(new TableModel());
 		this.add(tBar, BorderLayout.NORTH);
 		this.workspaceTree = new Tree();
 		// this.treeModel = new TreeModel();
