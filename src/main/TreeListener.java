@@ -9,11 +9,11 @@ public class TreeListener implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		var o = MainFrame.getInstance().getWorkspaceTree().getSelectionPath().getLastPathComponent();
-
-		if (o instanceof Entity && e.getClickCount() == 2) {
-			AppCore.getInstance().readDataFromTable(((Entity) o).getName());
-			
+		if(e.getClickCount() == 2) {
+			var o = MainFrame.getInstance().getWorkspaceTree().getSelectionPath().getLastPathComponent();
+			if (o instanceof Entity) {
+				AppCore.getInstance().readDataFromTable(((Entity) o).getName());
+			}
 		}
 
 	}
