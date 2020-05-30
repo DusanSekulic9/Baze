@@ -14,8 +14,10 @@ import javax.swing.JTable;
 
 import action.SveAkcije;
 import model.DataBaseModel;
+import observer.NotificationCode;
+import observer.Subscriber;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements Subscriber{
 	
 	private static MainFrame instance;
 	private Tree workspaceTree;
@@ -110,6 +112,19 @@ public class MainFrame extends JFrame {
 
 	public void settBar(ToolBar tBar) {
 		this.tBar = tBar;
+	}
+
+	@Override
+	public void update(Object notification) {
+//		if (notification.getCode() == NotificationCode.RESOURCE_LOADED){
+  //          System.out.println((InformationResource)notification.getData());
+    //    }
+
+      //  else{
+        //    jTable.setModel((TableModel) notification.getData());
+        //}
+
+    }
 	}
 	
 	
