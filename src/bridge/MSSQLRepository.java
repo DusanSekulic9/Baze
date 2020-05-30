@@ -62,6 +62,9 @@ public class MSSQLRepository implements Repository{
             while (tables.next()){
 
                 String tableName = tables.getString("TABLE_NAME");
+                if(tableName.contains("trace")) {
+                	continue;
+                }
                 Entity newTable = new Entity(tableName, ir);
                 ir.addNode(newTable);
 

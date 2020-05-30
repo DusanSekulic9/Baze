@@ -1,6 +1,5 @@
 package main;
 
-import javax.swing.table.TableModel;
 
 import bridge.Database;
 import bridge.DatabaseImplementation;
@@ -8,18 +7,23 @@ import bridge.MSSQLRepository;
 import bridge.settings.Settings;
 import bridge.settings.SettingsImplementation;
 import data.Constants;
+import gui.TableModel;
 import model.InformationResource;
+import nodes.DBNode;
 
 public class AppCore {
 	private static AppCore instance;
 	private Database database;
 	private Settings settings;
 	private InformationResource ir;
+	private TableModel tableModel;
 
 	private AppCore() {
 		this.settings = initSettings();
 		this.database = new DatabaseImplementation(new MSSQLRepository(this.settings));
+		this.tableModel = new TableModel();
 		loadResource();
+		readAllData();
 	}
 
 	private Settings initSettings() {
@@ -45,7 +49,7 @@ public class AppCore {
 
 	public void readDataFromTable(String fromTable) {
 
-		//tableModel.setRows(this.database.readDataFromTable(fromTable));
+		tableModel.setRows(this.database.readDataFromTable(fromTable));
 
 		// Zasto ova linija moze da ostane zakomentarisana?
 		// this.notifySubscribers(new Notification(NotificationCode.DATA_UPDATED,
@@ -54,6 +58,12 @@ public class AppCore {
 	
 	public InformationResource getIr() {
 		return ir;
+	}
+	
+	public void readAllData() {
+		for(DBNode node : ir.getChildren()) {
+			readDataFromTable(node.getName());
+		}
 	}
 
 }
