@@ -58,6 +58,14 @@ public class AppCore {
 	public InformationResource getIr() {
 		return ir;
 	}
+
+	public TableModel getTableModel() {
+		return tableModel;
+	}
+
+	public void setTableModel(TableModel tableModel) {
+		this.tableModel = tableModel;
+	}
 	
 
 

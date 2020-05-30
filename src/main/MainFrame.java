@@ -28,7 +28,10 @@ public class MainFrame extends JFrame implements Subscriber,MouseListener {
 	private ToolBar tBar;
 	private JTable tblUp;
 	private JTable tblDown;
-	
+
+	private JTabbedPane taboviGore = new JTabbedPane();
+	private JTabbedPane taboviDole = new JTabbedPane();
+
 	private MainFrame() {
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = kit.getScreenSize();
@@ -49,7 +52,7 @@ public class MainFrame extends JFrame implements Subscriber,MouseListener {
 		tBar = new ToolBar();
 		tblUp = new JTable();
 		tblDown = new JTable();
-		tblUp.setModel(new TableModel());
+		tblUp.setModel(AppCore.getInstance().getTableModel());
 		this.add(tBar, BorderLayout.NORTH);
 		this.workspaceTree = new Tree();
 		// this.treeModel = new TreeModel();
@@ -65,8 +68,6 @@ public class MainFrame extends JFrame implements Subscriber,MouseListener {
 		
 		JScrollPane treeScroll = new JScrollPane(workspaceTree);
 
-		JTabbedPane taboviGore = new JTabbedPane();
-		JTabbedPane taboviDole = new JTabbedPane();
 		JScrollPane tableUpScroll = new JScrollPane(tblUp);
 		JScrollPane tableDownScrooll = new JScrollPane(tblDown);
 		taboviGore.addTab("prvi tab", tableUpScroll);
