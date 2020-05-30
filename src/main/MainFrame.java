@@ -3,6 +3,8 @@ package main;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -11,19 +13,22 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 
 import action.SveAkcije;
 import model.DataBaseModel;
 import observer.NotificationCode;
 import observer.Subscriber;
 
-public class MainFrame extends JFrame implements Subscriber {
+public class MainFrame extends JFrame implements Subscriber,MouseListener {
 
 	private static MainFrame instance;
 	private Tree workspaceTree;
 	private SveAkcije akcije;
 	private ToolBar tBar;
-
+	private JTable tblUp;
+	private JTable tblDown;
 	private MainFrame() {
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = kit.getScreenSize();
@@ -43,20 +48,22 @@ public class MainFrame extends JFrame implements Subscriber {
 		panel.setLayout(new BorderLayout());
 		akcije = new SveAkcije();
 		tBar = new ToolBar();
+		tblUp = new JTable();
+		tblDown = new JTable();
+		tblUp.setModel(new gui.TableModel());
 		this.add(tBar, BorderLayout.NORTH);
 		this.workspaceTree = new Tree();
 		// this.treeModel = new TreeModel();
 		workspaceTree.setModel(new DataBaseModel());
 
-		Object[] columns = new Object[] { "Dosije", "Ime", "Prezime" };
+//		Object[] columns = new Object[] { "Dosije", "Ime", "Prezime" };
 
-		Object[][] data = { { "ra1/2011", "Petar", "Petroviæ" }, { "ra1/2011", "Lazar", "Laziæ" },
-				{ "ra2/2011", "Milan", "Kovaèeviæ" }, { "ra3/2011", "Ana", "Petroviæ" },
-				{ "ra4/2011", "Bojan", "Bakiæ" }, { "ra5/2011", "Dragan", "Kovaèeviæ" },
-				{ "ra6/2011", "Ivan", "Iviæ" } };
+//		Object[][] data = { { "ra1/2011", "Petar", "Petroviæ" }, { "ra1/2011", "Lazar", "Laziæ" },
+//				{ "ra2/2011", "Milan", "Kovaèeviæ" }, { "ra3/2011", "Ana", "Petroviæ" },
+//				{ "ra4/2011", "Bojan", "Bakiæ" }, { "ra5/2011", "Dragan", "Kovaèeviæ" },
+//				{ "ra6/2011", "Ivan", "Iviæ" } };
 
-		JTable tblUp = new JTable(data, columns);
-		JTable tblDown = new JTable(data, columns);
+		
 		JScrollPane treeScroll = new JScrollPane(workspaceTree);
 
 		JTabbedPane taboviGore = new JTabbedPane();
@@ -122,4 +129,36 @@ public class MainFrame extends JFrame implements Subscriber {
 		// }
 
 	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 }

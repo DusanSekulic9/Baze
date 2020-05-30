@@ -1,11 +1,9 @@
 package main;
 
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 
-import model.DataBaseModel;
 
-public class Tree extends JTree {
+public class Tree extends JTree  {
 
 	public Tree() {
 		
@@ -13,8 +11,10 @@ public class Tree extends JTree {
 	    //setCellEditor(new WorkspaceTreeEditor(this,new DefaultTreeCellRenderer()));
 	    setCellRenderer(new TreeNodeRenderer());
 	    setEditable(true);
+	    addMouseListener(new TreeListener());
 	}
 
+	
 	
 
 
