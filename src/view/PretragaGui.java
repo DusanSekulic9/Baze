@@ -109,6 +109,8 @@ public class PretragaGui extends JFrame{
 		//panel.add(like);
 		panel.add(znakovi.get(index));
 		this.add(panel);
+		this.pack();
+		this.setVisible(true);
 		
 	}
 
