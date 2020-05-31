@@ -146,6 +146,7 @@ public class MainFrame extends JFrame implements Subscriber{
 			TableModel tableModel = new TableModel();
 			tableModel.setName(name);
 			AppCore.getInstance().getTableModels().add(tableModel);
+			AppCore.getInstance().addModel(tableModel);
 			table.setModel(tableModel);
 			taboviGore.addTab(name, scroll);
 			AppCore.getInstance().readDataFromTable(tableModel.getName());
@@ -181,6 +182,7 @@ public class MainFrame extends JFrame implements Subscriber{
 				TableModel tableModel = new TableModel();
 				JScrollPane scroll = new JScrollPane(table);
 				AppCore.getInstance().getTableModels().add(tableModel);
+				AppCore.getInstance().addModel(tableModel);
 				tableModel.setName(e.getName());
 				table.setModel(tableModel);
 				taboviDole.addTab(e.getName(), scroll);

@@ -3,6 +3,8 @@ package main;
 
 import java.util.ArrayList;
 
+import javax.swing.tree.TreeNode;
+
 import bridge.Database;
 import bridge.DatabaseImplementation;
 import bridge.MSSQLRepository;
@@ -10,6 +12,8 @@ import bridge.settings.Settings;
 import bridge.settings.SettingsImplementation;
 import data.Constants;
 import gui.TableModel;
+import model.Attribute;
+import model.Entity;
 import model.InformationResource;
 import nodes.DBNode;
 import observer.Notification;
@@ -22,6 +26,7 @@ public class AppCore extends PublisherImplementation{
 	private Settings settings;
 	private InformationResource ir;
 	private ArrayList<TableModel> tableModels = new ArrayList<TableModel>();
+	private ArrayList<TableModel> models = new ArrayList<TableModel>();
 
 	private AppCore() {
 		this.settings = initSettings();
@@ -68,6 +73,17 @@ public class AppCore extends PublisherImplementation{
 		// this.getTableModel()));
 	}
 	
+	public void search(Entity entity, ArrayList<Attribute> at, ArrayList<String> oper, ArrayList<String> znak, ArrayList<String> param) {
+		TableModel tableModel = null;
+		for(TableModel tm : models) {
+			if(tm.getName().equalsIgnoreCase(entity.getName())) {
+				tableModel = tm;
+				break;
+			}
+		}
+		tableModel.setRows(this.database.search(entity, at, oper, znak, param));
+	}
+	
 	public InformationResource getIr() {
 		return ir;
 	}
@@ -80,7 +96,17 @@ public class AppCore extends PublisherImplementation{
 		this.tableModels = tableModels;
 	}
 
-	
+	public ArrayList<TableModel> getModels() {
+		return models;
+	}
 
+	public void addModel(TableModel model) {
+		for(TableModel tm : models) {
+			if(tm.getName().equalsIgnoreCase(model.getName())) {
+				return;
+			}
+		}
+		models.add(model);
+	}
 
 }

@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -41,6 +42,7 @@ public class PretragaGui extends JFrame{
 		BoxLayout boxlayout = new BoxLayout(panel, BoxLayout.X_AXIS); 	
 		this.setLayout(new FlowLayout());
 		panel.setLayout(boxlayout);
+
 	}
 	
 	public void inicijalizacija() {
@@ -77,7 +79,23 @@ public class PretragaGui extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				String selected = (String) znakovi.get(index).getSelectedItem();
 				if(selected.equalsIgnoreCase("finnish")) {
-					//appcore.getinstance.search
+					ArrayList<Attribute> at = new ArrayList<Attribute>();
+					ArrayList<String> oper = new ArrayList<String>();
+					ArrayList<String> znak = new ArrayList<String>();
+					ArrayList<String> param = new ArrayList<String>();
+					for(JComboBox cb : kolone) {
+						at.add((Attribute) cb.getSelectedItem());
+					}
+					for(JComboBox cb : operacije) {
+						oper.add((String) cb.getSelectedItem());
+					}
+					for(JComboBox cb : znakovi) {
+						znak.add((String) cb.getSelectedItem());
+					}
+					for(JTextField tf : broj) {
+						param.add(tf.getText());
+					}
+					AppCore.getInstance().search(entity, at, oper, znak, param);
 				}else {
 					makeNewSet();
 				}

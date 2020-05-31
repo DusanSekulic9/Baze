@@ -217,25 +217,64 @@ public class MSSQLRepository implements Repository{
     }
 
 	@Override
-	public List<Row> search(String from) {
+	public List<Row> search(Entity entity, ArrayList<Attribute> at, ArrayList<String> oper, ArrayList<String> znak, ArrayList<String> param) {
 		
 		 List<Row> rows = new ArrayList<>();
 		 
 		 try{
 	            this.initConnection();
-
-	            String query = "SELECT * FROM " + from;
+	            String upit = "";
+	            for(int i = 0; i < at.size(); i++) {
+	            	upit += at.get(i).getName() + " " + oper.get(i) + " '" + param.get(i) + "'";
+	            	if(!znak.get(i).equalsIgnoreCase("finnish")){
+	            		upit += " " + znak.get(i) + " ";
+	            	}
+	            }
+//	            int brojUpita = (in + 1) * 3 + 1;
+	            String query = "SELECT * FROM " + entity.getName() + " WHERE " + upit;
 	            PreparedStatement preparedStatement = connection.prepareStatement(query);
+//	            int index = 0;
+//	            for(int i = 1; i < brojUpita; i+=4) {
+//	            	String s = "";
+//	            	s += at.get(index).getName() + " " + oper.get(index) + " " + param.get(index);
+//	            	if(!znak.get(index).equalsIgnoreCase("finnish")){
+//	            		s += " " + znak.get(index++);
+//	            	}
+//	            	preparedStatement.setString(i, "hr." + at.get(index).getName());
+//	            	preparedStatement.setString(i + 1, oper.get(index));
+//	            	preparedStatement.setString(i + 2, "'" + param.get(index) + "'");
+//	            	if(!znak.get(index).equalsIgnoreCase("finnish")){
+//	            		preparedStatement.setString(i + 3, znak.get(index++));
+//	            	}
+//	            }
 	            ResultSet rs = preparedStatement.executeQuery();
 
 	            while (rs.next()){
 
 	                Row row = new Row();
-	                row.setName(from);
+	                row.setName(entity.getName());
 
 	                ResultSetMetaData resultSetMetaData = rs.getMetaData();
 	                for (int i = 1; i<=resultSetMetaData.getColumnCount(); i++){
-	                    row.addField(resultSetMetaData.getColumnName(i), rs.getString(i));
+	                	String type = resultSetMetaData.getColumnTypeName(i);
+	                	switch(type) {
+	                	case "varchar":
+	                		row.addField(resultSetMetaData.getColumnName(i), rs.getString(i));
+	                		break;
+	                	case "float":
+	                		row.addField(resultSetMetaData.getColumnName(i), rs.getFloat(i));
+	                		break;
+	                	case "numeric":
+	                		row.addField(resultSetMetaData.getColumnName(i), rs.getInt(i));
+	                		break;
+	                	case "char":
+	                		row.addField(resultSetMetaData.getColumnName(i), rs.getString(i));
+	                		break;
+	                	case "datetime":
+	                		row.addField(resultSetMetaData.getColumnName(i), rs.getDate(i));
+	                		break;
+	                		
+	                	}
 	                }
 	                rows.add(row);
 
