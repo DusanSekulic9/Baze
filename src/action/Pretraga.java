@@ -15,6 +15,8 @@ public class Pretraga  extends Akcija{
 	public void actionPerformed(ActionEvent e) {
 		//MainFrame.getInstance().dispatchEvent(new WindowEvent(MainFrame.getInstance(), WindowEvent.WINDOW_CLOSING));
 		PretragaGui drugiProzor = new PretragaGui();
+		drugiProzor.inicijalizacija();
+		drugiProzor.dodaj();
 		drugiProzor.setVisible(true);
 	}
 
