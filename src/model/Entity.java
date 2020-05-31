@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import nodes.DBNode;
 import nodes.DBNodeComposite;
+import observer.Notification;
+import observer.NotificationCode;
 import observer.Publisher;
 import observer.Subscriber;
 
@@ -41,6 +43,10 @@ public class Entity extends DBNodeComposite implements Publisher{
 	        for(Subscriber listener : subscribers){
 	            listener.update(notification);
 	        }
+	}
+	
+	public void show() {
+		notifySubscribers(new Notification(NotificationCode.SHOW, this));
 	}
 
 }

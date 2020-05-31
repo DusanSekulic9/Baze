@@ -15,7 +15,7 @@ public class TreeListener implements MouseListener {
 			var o = MainFrame.getInstance().getWorkspaceTree().getSelectionPath().getLastPathComponent();
 			if (o instanceof Entity) {
 				Entity entity = (Entity) o;
-				entity.notifySubscribers(new Notification(NotificationCode.SHOW, entity));
+				entity.show();
 			}
 		}
 
