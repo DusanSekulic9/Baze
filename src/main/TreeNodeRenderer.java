@@ -46,7 +46,7 @@ public class TreeNodeRenderer extends DefaultTreeCellRenderer {
 			setIcon(icon);
 
 		} else if (value instanceof Entity) {
-			URL imageURL = getClass().getResource("images/tproject.gif");
+			URL imageURL = getClass().getResource("entity.png");
 			Icon icon = null;
 			if (imageURL != null)
 				icon = new ImageIcon(imageURL);

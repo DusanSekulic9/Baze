@@ -18,7 +18,7 @@ public class Pretraga  extends Akcija{
 
 	public Pretraga() {
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_K, ActionEvent.CTRL_MASK));
-		putValue(SMALL_ICON, ucitajIkonicu("src/app/view/images/exit.png"));
+		putValue(SMALL_ICON, ucitajIkonicu("src/search.png"));
 		putValue(NAME, "Exit");
 		putValue(SHORT_DESCRIPTION, "Exit");
 	}

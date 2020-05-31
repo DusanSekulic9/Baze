@@ -18,7 +18,7 @@ public class Izvestaj extends Akcija{
 
 	public Izvestaj() {
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_K, ActionEvent.CTRL_MASK));
-		putValue(SMALL_ICON, ucitajIkonicu("src/app/view/images/exit.png"));
+		putValue(SMALL_ICON, ucitajIkonicu("src/report.png"));
 		putValue(NAME, "Exit");
 		putValue(SHORT_DESCRIPTION, "Exit");
 	}

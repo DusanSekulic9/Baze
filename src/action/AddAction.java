@@ -18,7 +18,7 @@ public class AddAction  extends Akcija{
 
 	public AddAction() {
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_K, ActionEvent.CTRL_MASK));
-		putValue(SMALL_ICON, ucitajIkonicu("src/app/view/images/exit.png"));
+		putValue(SMALL_ICON, ucitajIkonicu("src/add.png"));
 		putValue(NAME, "Exit");
 		putValue(SHORT_DESCRIPTION, "Exit");
 	}

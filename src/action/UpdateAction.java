@@ -8,7 +8,7 @@ import javax.swing.KeyStroke;
 
 import main.MainFrame;
 
-public class RefreshAction extends Akcija{
+public class UpdateAction extends Akcija{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -16,9 +16,9 @@ public class RefreshAction extends Akcija{
 		
 	}
 
-	public RefreshAction() {
+	public UpdateAction() {
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_K, ActionEvent.CTRL_MASK));
-		putValue(SMALL_ICON, ucitajIkonicu("src/app/view/images/exit.png"));
+		putValue(SMALL_ICON, ucitajIkonicu("src/update.png"));
 		putValue(NAME, "Exit");
 		putValue(SHORT_DESCRIPTION, "Exit");
 	}

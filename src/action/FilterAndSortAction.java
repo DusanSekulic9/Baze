@@ -18,7 +18,7 @@ public class FilterAndSortAction extends Akcija{
 
 	public FilterAndSortAction() {
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_K, ActionEvent.CTRL_MASK));
-		putValue(SMALL_ICON, ucitajIkonicu("src/app/view/images/exit.png"));
+		putValue(SMALL_ICON, ucitajIkonicu("src/filter.png"));
 		putValue(NAME, "Exit");
 		putValue(SHORT_DESCRIPTION, "Exit");
 	}

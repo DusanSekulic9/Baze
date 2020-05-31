@@ -6,7 +6,7 @@ public class SveAkcije {
 	private AddAction add;
 	private DeleteAction delete;
 	private FilterAndSortAction fAndS;
-	private RefreshAction refresh;
+	private UpdateAction refresh;
 	private Izvestaj izvestaj;
 	
 	public SveAkcije() {
@@ -14,7 +14,7 @@ public class SveAkcije {
 		add = new AddAction();
 		delete = new DeleteAction();
 		fAndS = new FilterAndSortAction();
-		refresh = new RefreshAction();
+		refresh = new UpdateAction();
 		izvestaj = new Izvestaj();
 	}
 
@@ -50,11 +50,11 @@ public class SveAkcije {
 		this.fAndS = fAndS;
 	}
 
-	public RefreshAction getRefresh() {
+	public UpdateAction getRefresh() {
 		return refresh;
 	}
 
-	public void setRefresh(RefreshAction refresh) {
+	public void setRefresh(UpdateAction refresh) {
 		this.refresh = refresh;
 	}
 
