@@ -60,6 +60,7 @@ public class AppCore extends PublisherImplementation{
 		}
 		
 		tableModel.setRows(this.database.readDataFromTable(fromTable));
+		tableModels.remove(tableModel);
 
 		// Zasto ova linija moze da ostane zakomentarisana?
 		// this.notifySubscribers(new Notification(NotificationCode.DATA_UPDATED,
