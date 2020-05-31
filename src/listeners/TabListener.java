@@ -1,11 +1,14 @@
 package listeners;
 
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
+import gui.ScrollPane;
 import gui.TableModel;
 import main.AppCore;
 import main.MainFrame;
@@ -14,11 +17,9 @@ public class TabListener implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		JTabbedPane tab = MainFrame.getInstance().getTaboviGore();
-		JTable table = (JTable) tab.getSelectedComponent();
-		TableModel tableModel = (TableModel) table.getModel();
-		AppCore.getInstance().readDataFromTable(tableModel.getName());
-		MainFrame.getInstance().updateDown(AppCore.getInstance().getIr().getEntity(tableModel.getName()));
+		ScrollPane scroll = (ScrollPane) MainFrame.getInstance().getTaboviGore().getSelectedComponent();
+		
+		MainFrame.getInstance().updateUp(AppCore.getInstance().getIr().getEntity(scroll.getName()));
 	}
 
 	@Override

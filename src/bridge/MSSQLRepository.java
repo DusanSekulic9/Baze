@@ -116,7 +116,6 @@ public class MSSQLRepository implements Repository{
             				break;
             			}
             		}
-            		System.out.println(attribute1);
             		Entity tabela2 = null;
             		for(DBNode table2 : ir.getChildren()) {
             			if(table2.getName().equalsIgnoreCase(pkTableName)) {
@@ -124,7 +123,6 @@ public class MSSQLRepository implements Repository{
             				break;
             			}
             		}
-            		System.out.println(tabela2);
             		Attribute attribute2 = null;
             		for(DBNode child : tabela2.getChildren()) {
             			if(child.getName().equalsIgnoreCase(pkColumnName)) {
@@ -132,7 +130,6 @@ public class MSSQLRepository implements Repository{
             				break;
             			}
             		}
-            		System.out.println(attribute2);
             		attribute1.getRelations().add(attribute2);
             		attribute2.getRelations().add(attribute1);
             		attribute1.addNode(new AttributeConstraint("FOREIGN_KEY", attribute1, ConstraintType.FOREIGN_KEY));

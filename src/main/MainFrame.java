@@ -18,6 +18,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 
 import action.SveAkcije;
+import gui.ScrollPane;
 import gui.TableModel;
 import listeners.TabListener;
 import model.Attribute;
@@ -129,22 +130,28 @@ public class MainFrame extends JFrame implements Subscriber{
 		if(not.getCode().equals(NotificationCode.RESOURCE_LOADED)) {
 			
 		}else if(not.getCode().equals(NotificationCode.SHOW)) {
-			Entity entity = (Entity) not.getData();
-			String name = entity.getName();
-			if(taboviGore.indexOfTab(name) == -1) {
-				JTable table = new JTable();
-				JScrollPane scroll = new JScrollPane(table);
-				TableModel tableModel = new TableModel();
-				tableModel.setName(name);
-				AppCore.getInstance().getTableModels().add(tableModel);
-				table.setModel(tableModel);
-				taboviGore.addTab(name, scroll);
-				AppCore.getInstance().readDataFromTable(tableModel.getName());
-			}else {
-				taboviGore.setSelectedIndex(taboviGore.indexOfTab(name));
-			}
-			updateDown(entity);
+			updateUp(not.getData());
 		}
+	}
+
+	public void updateUp(Object data) {
+		Entity entity = (Entity) data;
+		String name = entity.getName();
+		if(taboviGore.indexOfTab(name) == -1) {
+			JTable table = new JTable();
+			ScrollPane scroll = (ScrollPane) new ScrollPane(table);
+			scroll.setName(name);
+			TableModel tableModel = new TableModel();
+			tableModel.setName(name);
+			AppCore.getInstance().getTableModels().add(tableModel);
+			table.setModel(tableModel);
+			taboviGore.addTab(name, scroll);
+			AppCore.getInstance().readDataFromTable(tableModel.getName());
+		}else {
+			taboviGore.setSelectedIndex(taboviGore.indexOfTab(name));
+		}
+		updateDown(entity);
+		
 	}
 
 	public void updateDown(Entity entity) {
@@ -182,17 +189,7 @@ public class MainFrame extends JFrame implements Subscriber{
 	}
 
 	private void deleteOld() {
-		for(Component c :taboviDole.getComponents()) {
-			JScrollPane scroll = (JScrollPane) c;
-			JTable table = null;
-			for(Component co : scroll.getComponents()) {
-				if(co instanceof JTable) {
-					table = (JTable) co;
-				}
-			}
-			//AppCore.getInstance().getTableModels().remove(table.getModel());
-			tblDown.remove(table);
-		}
+		tblDown.clear();
 		taboviDole.removeAll();
 	}
 
