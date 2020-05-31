@@ -1,7 +1,8 @@
 package view;
 
 import java.awt.BorderLayout;
-
+import java.awt.FlowLayout;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -9,15 +10,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import javafx.scene.layout.FlowPane;
+
 public class PretragaGui extends JFrame{
 	
+	
+	private ArrayList<FlowPane> paneli;
 	private JComboBox<String> kolone;
 	private JComboBox<String> operacije;
+	private JComboBox<String> znakovi;
 	private JButton like;
 	private JTextField broj;
-	private JButton and;
-	private JButton or;
-	private JButton finish;
+
+	private FlowLayout experimentLayout = new FlowLayout();
 	
 	public PretragaGui() {
 		setTitle("Pretraga");
@@ -26,36 +31,28 @@ public class PretragaGui extends JFrame{
 	}
 	
 	public void inicijalizacija() {
-		kolone = new JComboBox<String>();
-		operacije = new JComboBox<String>();
+		kolone = new JComboBox<>();
+		operacije = new JComboBox<>();
 		like = new JButton("Like");
-		and = new JButton("And");
-		or = new JButton("Or");
-		finish = new JButton("Finish");
+		znakovi = new JComboBox<String>();
 		broj = new JTextField();
 	}
 	
 	public void dodaj() {
-		JPanel levo = new JPanel();
-		JPanel centar = new JPanel();
-		JPanel desno = new JPanel();
+		JPanel panel = new JPanel();
+		panel.setLayout(experimentLayout);
+		experimentLayout.setAlignment(FlowLayout.TRAILING);
+		JPanel controls = new JPanel();
+		controls.setLayout(new FlowLayout());
+		 		
+		panel.add(kolone);
+		panel.add(operacije);
+		panel.add(broj);
+		panel.add(like);
+		panel.add(znakovi);
 		
-		levo.setLayout(new BorderLayout());
-		centar.setLayout(new BorderLayout());
-		desno.setLayout(new BorderLayout());
-		levo.setSize(	15, 30);
-		centar.setSize(15, 30);
-		levo.add(kolone, BorderLayout.NORTH);
-		levo.add(operacije, BorderLayout.CENTER);
-		centar.add(broj, BorderLayout.NORTH);
-		centar.add(like, BorderLayout.CENTER);
-		desno.add(and, BorderLayout.NORTH);
-		desno.add(or, BorderLayout.CENTER);
-		desno.add(finish, BorderLayout.SOUTH);
+
 		
-		this.add(levo, BorderLayout.WEST);
-		this.add(centar,BorderLayout.CENTER);
-		this.add(desno,BorderLayout.EAST);
 	}
 
 	public JComboBox<String> getKolone() {
@@ -90,29 +87,29 @@ public class PretragaGui extends JFrame{
 		this.broj = broj;
 	}
 
-	public JButton getAnd() {
-		return and;
+	public ArrayList<FlowPane> getPaneli() {
+		return paneli;
 	}
 
-	public void setAnd(JButton and) {
-		this.and = and;
+	public void setPaneli(ArrayList<FlowPane> paneli) {
+		this.paneli = paneli;
 	}
 
-	public JButton getOr() {
-		return or;
+	public JComboBox<String> getZnakovi() {
+		return znakovi;
 	}
 
-	public void setOr(JButton or) {
-		this.or = or;
+	public void setZnakovi(JComboBox<String> znakovi) {
+		this.znakovi = znakovi;
 	}
 
-	public JButton getFinish() {
-		return finish;
+	public FlowLayout getExperimentLayout() {
+		return experimentLayout;
 	}
 
-	public void setFinish(JButton finish) {
-		this.finish = finish;
+	public void setExperimentLayout(FlowLayout experimentLayout) {
+		this.experimentLayout = experimentLayout;
 	}
-	
+
 	
 }
