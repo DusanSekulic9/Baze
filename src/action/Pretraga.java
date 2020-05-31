@@ -8,7 +8,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
-import main.MainFrame;
+import view.MainFrame;
 import view.PretragaGui;
 
 public class Pretraga  extends Akcija{

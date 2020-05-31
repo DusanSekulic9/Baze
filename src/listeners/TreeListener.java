@@ -1,4 +1,4 @@
-package main;
+package listeners;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 import model.Entity;
 import observer.Notification;
 import observer.NotificationCode;
+import view.MainFrame;
 
 public class TreeListener implements MouseListener {
 

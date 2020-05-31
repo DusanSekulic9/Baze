@@ -1,4 +1,4 @@
-package main;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -21,6 +21,7 @@ import action.SveAkcije;
 import gui.ScrollPane;
 import gui.TableModel;
 import listeners.TabListener;
+import main.AppCore;
 import model.Attribute;
 import model.DataBaseModel;
 import model.Entity;

@@ -6,7 +6,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.KeyStroke;
 
-import main.MainFrame;
+import view.MainFrame;
 
 public class Izvestaj extends Akcija{
 

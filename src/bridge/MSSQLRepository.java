@@ -9,13 +9,13 @@ import data.Constants;
 import data.Row;
 import enums.AttributeType;
 import enums.ConstraintType;
-import main.MainFrame;
 import model.Attribute;
 import model.AttributeConstraint;
 import model.Entity;
 import model.InformationResource;
 import nodes.DBNode;
 import nodes.DBNodeComposite;
+import view.MainFrame;
 
 public class MSSQLRepository implements Repository{
 	

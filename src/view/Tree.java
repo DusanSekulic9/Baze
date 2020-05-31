@@ -1,6 +1,8 @@
-package main;
+package view;
 
 import javax.swing.JTree;
+
+import listeners.TreeListener;
 
 
 public class Tree extends JTree  {

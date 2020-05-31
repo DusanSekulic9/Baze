@@ -6,7 +6,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.table.DefaultTableModel;
 
 import data.Row;
-import main.MainFrame;
+import view.MainFrame;
 
 import java.lang.reflect.Array;
 import java.util.Collections;

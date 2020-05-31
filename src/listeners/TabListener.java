@@ -11,7 +11,7 @@ import javax.swing.JTable;
 import gui.ScrollPane;
 import gui.TableModel;
 import main.AppCore;
-import main.MainFrame;
+import view.MainFrame;
 
 public class TabListener implements MouseListener{
 
