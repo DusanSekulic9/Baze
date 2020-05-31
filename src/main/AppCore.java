@@ -1,6 +1,8 @@
 package main;
 
 
+import java.util.ArrayList;
+
 import bridge.Database;
 import bridge.DatabaseImplementation;
 import bridge.MSSQLRepository;
@@ -10,18 +12,20 @@ import data.Constants;
 import gui.TableModel;
 import model.InformationResource;
 import nodes.DBNode;
+import observer.Notification;
+import observer.NotificationCode;
+import observer.PublisherImplementation;
 
-public class AppCore {
+public class AppCore extends PublisherImplementation{
 	private static AppCore instance;
 	private Database database;
 	private Settings settings;
 	private InformationResource ir;
-	private TableModel tableModel;
+	private ArrayList<TableModel> tableModels = new ArrayList<TableModel>();
 
 	private AppCore() {
 		this.settings = initSettings();
 		this.database = new DatabaseImplementation(new MSSQLRepository(this.settings));
-		this.tableModel = new TableModel();
 		loadResource();
 	}
 
@@ -43,11 +47,18 @@ public class AppCore {
 
 	public void loadResource() {
 		this.ir = (InformationResource) this.database.loadResource();
-		//this.notifySubscribers(new Notification(NotificationCode.RESOURCE_LOADED, ir));
+		this.notifySubscribers(new Notification(NotificationCode.RESOURCE_LOADED, ir));
 	}
 
 	public void readDataFromTable(String fromTable) {
-
+		TableModel tableModel = null;
+		for(TableModel tm : tableModels) {
+			if(tm.getName().equalsIgnoreCase(fromTable)) {
+				tableModel = tm;
+				break;
+			}
+		}
+		
 		tableModel.setRows(this.database.readDataFromTable(fromTable));
 
 		// Zasto ova linija moze da ostane zakomentarisana?
@@ -59,13 +70,14 @@ public class AppCore {
 		return ir;
 	}
 
-	public TableModel getTableModel() {
-		return tableModel;
+	public ArrayList<TableModel> getTableModels() {
+		return tableModels;
 	}
 
-	public void setTableModel(TableModel tableModel) {
-		this.tableModel = tableModel;
+	public void setTableModels(ArrayList<TableModel> tableModels) {
+		this.tableModels = tableModels;
 	}
+
 	
 
 

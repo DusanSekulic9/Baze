@@ -9,6 +9,7 @@ import data.Constants;
 import data.Row;
 import enums.AttributeType;
 import enums.ConstraintType;
+import main.MainFrame;
 import model.Attribute;
 import model.AttributeConstraint;
 import model.Entity;
@@ -66,6 +67,7 @@ public class MSSQLRepository implements Repository{
                 	continue;
                 }
                 Entity newTable = new Entity(tableName, ir);
+                newTable.addSubscriber(MainFrame.getInstance());
                 ir.addNode(newTable);
 
                 //Koje atribute imaja ova tabela?

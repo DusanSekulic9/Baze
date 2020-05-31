@@ -13,4 +13,13 @@ public class InformationResource extends DBNodeComposite{
 		super(name);
 	}
 	
+	public Entity getEntity(String name) {
+		for(DBNode node : getChildren()) {
+			if(node.getName().equalsIgnoreCase(name)) {
+				return (Entity) node;
+			}
+		}
+		return null;
+	}
+	
 }

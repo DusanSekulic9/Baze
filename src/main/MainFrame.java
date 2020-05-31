@@ -1,10 +1,13 @@
 package main;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -16,18 +19,23 @@ import javax.swing.JTable;
 
 import action.SveAkcije;
 import gui.TableModel;
+import listeners.TabListener;
+import model.Attribute;
 import model.DataBaseModel;
+import model.Entity;
+import nodes.DBNode;
+import observer.Notification;
 import observer.NotificationCode;
 import observer.Subscriber;
 
-public class MainFrame extends JFrame implements Subscriber,MouseListener {
+public class MainFrame extends JFrame implements Subscriber{
 
 	private static MainFrame instance;
 	private Tree workspaceTree;
 	private SveAkcije akcije;
 	private ToolBar tBar;
-	private JTable tblUp;
-	private JTable tblDown;
+	private ArrayList<JTable> tblUp = new ArrayList<JTable>();
+	private ArrayList<JTable> tblDown = new ArrayList<JTable>();
 
 	private JTabbedPane taboviGore = new JTabbedPane();
 	private JTabbedPane taboviDole = new JTabbedPane();
@@ -50,13 +58,11 @@ public class MainFrame extends JFrame implements Subscriber,MouseListener {
 		panel.setLayout(new BorderLayout());
 		akcije = new SveAkcije();
 		tBar = new ToolBar();
-		tblUp = new JTable();
-		tblDown = new JTable();
-		tblUp.setModel(AppCore.getInstance().getTableModel());
 		this.add(tBar, BorderLayout.NORTH);
 		this.workspaceTree = new Tree();
 		// this.treeModel = new TreeModel();
 		workspaceTree.setModel(new DataBaseModel());
+		taboviGore.addMouseListener(new TabListener());
 
 //		Object[] columns = new Object[] { "Dosije", "Ime", "Prezime" };
 
@@ -68,12 +74,11 @@ public class MainFrame extends JFrame implements Subscriber,MouseListener {
 		
 		JScrollPane treeScroll = new JScrollPane(workspaceTree);
 
-		JScrollPane tableUpScroll = new JScrollPane(tblUp);
-		JScrollPane tableDownScrooll = new JScrollPane(tblDown);
-		taboviGore.addTab(tblUp.getName(), tableUpScroll);
-		taboviDole.addTab("prvi tab", tableDownScrooll);
+		JScrollPane tableUpScroll = new JScrollPane();
+		JScrollPane tableDownScrooll = new JScrollPane();
+		//taboviGore.addTab(, tableUpScroll);
+		//taboviDole.addTab("prvi tab", tableDownScrooll);
 		// panelZaTabove.add(tableUpScroll);
-
 		JSplitPane splitTable = new JSplitPane(JSplitPane.VERTICAL_SPLIT, taboviGore, taboviDole);
 		panel.add(tBar, BorderLayout.NORTH);
 		panel.add(splitTable, BorderLayout.CENTER);
@@ -120,45 +125,104 @@ public class MainFrame extends JFrame implements Subscriber,MouseListener {
 
 	@Override
 	public void update(Object notification) {
-//		if (notification.getCode() == NotificationCode.RESOURCE_LOADED){
-		// System.out.println((InformationResource)notification.getData());
-		// }
-
-		// else{
-		// jTable.setModel((TableModel) notification.getData());
-		// }
-
+		Notification not = (Notification) notification;
+		if(not.getCode().equals(NotificationCode.RESOURCE_LOADED)) {
+			
+		}else if(not.getCode().equals(NotificationCode.SHOW)) {
+			Entity entity = (Entity) not.getData();
+			String name = entity.getName();
+			if(taboviGore.indexOfTab(name) == -1) {
+				JTable table = new JTable();
+				TableModel tableModel = new TableModel();
+				tableModel.setName(name);
+				AppCore.getInstance().getTableModels().add(tableModel);
+				table.setModel(tableModel);
+				taboviGore.addTab(name, table);
+				AppCore.getInstance().readDataFromTable(tableModel.getName());
+			}else {
+				taboviGore.setSelectedIndex(taboviGore.indexOfTab(name));
+			}
+			updateDown(entity);
+		}
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		
+	public void updateDown(Entity entity) {
+		deleteOld();
+		makeNewTabsDown(entity);
+		taboviGore.setSelectedIndex(taboviGore.indexOfTab(entity.getName()));
+	}
+
+	private void makeNewTabsDown(Entity entity) {
+		ArrayList<Attribute> attributesOfEntityWithRelation = new ArrayList<Attribute>();
+		ArrayList<Attribute> relations = new ArrayList<Attribute>();
+		for(DBNode node : entity.getChildren()) {
+			Attribute at = (Attribute) node;
+			if(!at.getRelations().isEmpty()) {
+				attributesOfEntityWithRelation.add((Attribute) node);
+			}
+		}
+		for(Attribute at : attributesOfEntityWithRelation) {
+			relations.addAll(at.getRelations());
+		}
+		for(Attribute at : relations) {
+			Entity e = (Entity) at.getParent();
+			if(taboviDole.indexOfTab(e.getName()) == -1) {
+				JTable table = new JTable();
+				TableModel tableModel = new TableModel();
+				AppCore.getInstance().getTableModels().add(tableModel);
+				tableModel.setName(e.getName());
+				table.setModel(tableModel);
+				taboviDole.addTab(e.getName(), table);
+				AppCore.getInstance().readDataFromTable(tableModel.getName());
+			}
+		}
 		
 	}
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	private void deleteOld() {
+		for(Component c :taboviDole.getComponents()) {
+			JTable table = (JTable) c;
+			AppCore.getInstance().getTableModels().remove(table.getModel());
+			tblDown.remove(table);
+		}
+		taboviDole.removeAll();
 	}
 
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public JTabbedPane getTaboviGore() {
+		return taboviGore;
 	}
 
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void setTaboviGore(JTabbedPane taboviGore) {
+		this.taboviGore = taboviGore;
 	}
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public JTabbedPane getTaboviDole() {
+		return taboviDole;
 	}
+
+	public void setTaboviDole(JTabbedPane taboviDole) {
+		this.taboviDole = taboviDole;
+	}
+
+	public ArrayList<JTable> getTblUp() {
+		return tblUp;
+	}
+
+	public void setTblUp(ArrayList<JTable> tblUp) {
+		this.tblUp = tblUp;
+	}
+
+	public ArrayList<JTable> getTblDown() {
+		return tblDown;
+	}
+
+	public void setTblDown(ArrayList<JTable> tblDown) {
+		this.tblDown = tblDown;
+	}
+
+	
+	
+	
 	
 	
 }

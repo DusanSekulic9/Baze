@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import model.Entity;
+import observer.Notification;
+import observer.NotificationCode;
 
 public class TreeListener implements MouseListener {
 
@@ -12,7 +14,8 @@ public class TreeListener implements MouseListener {
 		if(e.getClickCount() == 2) {
 			var o = MainFrame.getInstance().getWorkspaceTree().getSelectionPath().getLastPathComponent();
 			if (o instanceof Entity) {
-				AppCore.getInstance().readDataFromTable(((Entity) o).getName());
+				Entity entity = (Entity) o;
+				entity.notifySubscribers(new Notification(NotificationCode.SHOW, entity));
 			}
 		}
 

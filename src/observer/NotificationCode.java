@@ -2,5 +2,6 @@ package observer;
 
 public enum NotificationCode {
 	DATA_UPDATED,
-    RESOURCE_LOADED
+    RESOURCE_LOADED,
+    SHOW
 }
