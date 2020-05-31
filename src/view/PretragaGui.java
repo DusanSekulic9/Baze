@@ -50,7 +50,7 @@ public class PretragaGui extends JFrame{
 		panel.add(broj);
 		panel.add(like);
 		panel.add(znakovi);
-		
+		this.add
 
 		
 	}

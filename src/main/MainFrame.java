@@ -59,6 +59,7 @@ public class MainFrame extends JFrame implements Subscriber{
 		panel.setLayout(new BorderLayout());
 		akcije = new SveAkcije();
 		tBar = new ToolBar();
+		tBar.setVisible(false);
 		this.add(tBar, BorderLayout.NORTH);
 		this.workspaceTree = new Tree();
 		// this.treeModel = new TreeModel();
@@ -135,6 +136,7 @@ public class MainFrame extends JFrame implements Subscriber{
 	}
 
 	public void updateUp(Object data) {
+		tBar.setVisible(true);
 		Entity entity = (Entity) data;
 		String name = entity.getName();
 		if(taboviGore.indexOfTab(name) == -1) {
