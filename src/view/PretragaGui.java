@@ -1,9 +1,7 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -40,9 +38,9 @@ public class PretragaGui extends JFrame{
 		setSize(800, 550);
 		setLocationRelativeTo(null);
 		entity = AppCore.getInstance().getIr().getEntity(name);
-		//BoxLayout boxlayout = new BoxLayout(panel, BoxLayout.Y_AXIS); 	
-		this.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		panel.setLayout(new FlowLayout());
+		BoxLayout boxlayout = new BoxLayout(panel, BoxLayout.X_AXIS); 	
+		this.setLayout(new FlowLayout());
+		panel.setLayout(boxlayout);
 	}
 	
 	public void inicijalizacija() {
