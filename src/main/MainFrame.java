@@ -133,11 +133,12 @@ public class MainFrame extends JFrame implements Subscriber{
 			String name = entity.getName();
 			if(taboviGore.indexOfTab(name) == -1) {
 				JTable table = new JTable();
+				JScrollPane scroll = new JScrollPane(table);
 				TableModel tableModel = new TableModel();
 				tableModel.setName(name);
 				AppCore.getInstance().getTableModels().add(tableModel);
 				table.setModel(tableModel);
-				taboviGore.addTab(name, table);
+				taboviGore.addTab(name, scroll);
 				AppCore.getInstance().readDataFromTable(tableModel.getName());
 			}else {
 				taboviGore.setSelectedIndex(taboviGore.indexOfTab(name));
@@ -169,10 +170,11 @@ public class MainFrame extends JFrame implements Subscriber{
 			if(taboviDole.indexOfTab(e.getName()) == -1) {
 				JTable table = new JTable();
 				TableModel tableModel = new TableModel();
+				JScrollPane scroll = new JScrollPane(table);
 				AppCore.getInstance().getTableModels().add(tableModel);
 				tableModel.setName(e.getName());
 				table.setModel(tableModel);
-				taboviDole.addTab(e.getName(), table);
+				taboviDole.addTab(e.getName(), scroll);
 				AppCore.getInstance().readDataFromTable(tableModel.getName());
 			}
 		}
@@ -181,8 +183,14 @@ public class MainFrame extends JFrame implements Subscriber{
 
 	private void deleteOld() {
 		for(Component c :taboviDole.getComponents()) {
-			JTable table = (JTable) c;
-			AppCore.getInstance().getTableModels().remove(table.getModel());
+			JScrollPane scroll = (JScrollPane) c;
+			JTable table = null;
+			for(Component co : scroll.getComponents()) {
+				if(co instanceof JTable) {
+					table = (JTable) co;
+				}
+			}
+			//AppCore.getInstance().getTableModels().remove(table.getModel());
 			tblDown.remove(table);
 		}
 		taboviDole.removeAll();
