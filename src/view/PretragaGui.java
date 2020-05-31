@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class PretragaGui extends JFrame{
@@ -35,13 +36,25 @@ public class PretragaGui extends JFrame{
 	}
 	
 	public void dodaj() {
-		this.add(kolone, BorderLayout.EAST);
-		this.add(operacije, BorderLayout.EAST);
-		this.add(broj,BorderLayout.CENTER);
-		this.add(like,BorderLayout.CENTER);
-		this.add(and,BorderLayout.WEST);
-		this.add(or,BorderLayout.WEST);
-		this.add(finish,BorderLayout.WEST);
+		JPanel levo = new JPanel();
+		JPanel centar = new JPanel();
+		JPanel desno = new JPanel();
+		
+		levo.setLayout(new BorderLayout());
+		centar.setLayout(new BorderLayout());
+		desno.setLayout(new BorderLayout());
+		
+		levo.add(kolone, BorderLayout.NORTH);
+		levo.add(operacije, BorderLayout.CENTER);
+		centar.add(broj, BorderLayout.NORTH);
+		centar.add(like, BorderLayout.CENTER);
+		desno.add(and, BorderLayout.NORTH);
+		desno.add(or, BorderLayout.CENTER);
+		desno.add(finish, BorderLayout.SOUTH);
+		
+		this.add(levo, BorderLayout.WEST);
+		this.add(centar,BorderLayout.CENTER);
+		this.add(desno,BorderLayout.EAST);
 	}
 
 	public JComboBox<String> getKolone() {
