@@ -39,7 +39,9 @@ public class PretragaGui extends JFrame{
 		setSize(800, 550);
 		setLocationRelativeTo(null);
 		entity = AppCore.getInstance().getIr().getEntity(name);
-		this.setLayout(new GridLayout());
+		//BoxLayout boxlayout = new BoxLayout(panel, BoxLayout.Y_AXIS); 	
+		this.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.setLayout(new GridLayout());
 	}
 	
 	public void inicijalizacija() {
@@ -101,13 +103,13 @@ public class PretragaGui extends JFrame{
 		if(paneli.isEmpty()) {
 			paneli.add(panel);
 		}
-		 		
+			
 		panel.add(kolone.get(index));
 		panel.add(operacije.get(index));
 		panel.add(broj.get(index));
 		//panel.add(like);
 		panel.add(znakovi.get(index));
-		this.add(panel,BorderLayout.CENTER);
+		this.add(panel);
 		
 	}
 
