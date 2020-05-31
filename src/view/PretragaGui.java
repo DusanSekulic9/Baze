@@ -43,7 +43,8 @@ public class PretragaGui extends JFrame{
 		levo.setLayout(new BorderLayout());
 		centar.setLayout(new BorderLayout());
 		desno.setLayout(new BorderLayout());
-		
+		kolone.setSize(	15, 30);
+		operacije.setSize(15, 30);
 		levo.add(kolone, BorderLayout.NORTH);
 		levo.add(operacije, BorderLayout.CENTER);
 		centar.add(broj, BorderLayout.NORTH);
