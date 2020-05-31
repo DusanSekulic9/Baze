@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -15,6 +16,7 @@ import javax.swing.JTextField;
 
 import enums.AttributeType;
 import main.AppCore;
+import main.MainFrame;
 import model.Attribute;
 import model.Entity;
 import nodes.DBNode;
@@ -36,7 +38,7 @@ public class PretragaGui extends JFrame{
 	
 	public PretragaGui(String name) {
 		setTitle("Pretraga");
-		setSize(800, 550);
+		setSize(1400, 1000);
 		setLocationRelativeTo(null);
 		entity = AppCore.getInstance().getIr().getEntity(name);
 		BoxLayout boxlayout = new BoxLayout(panel, BoxLayout.X_AXIS); 	
@@ -96,6 +98,7 @@ public class PretragaGui extends JFrame{
 						param.add(tf.getText());
 					}
 					AppCore.getInstance().search(entity, at, oper, znak, param);
+					MainFrame.getInstance().dispatchEvent(new WindowEvent(MainFrame.getInstance(), WindowEvent.WINDOW_CLOSING));
 				}else {
 					makeNewSet();
 				}

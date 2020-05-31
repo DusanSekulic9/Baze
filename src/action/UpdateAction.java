@@ -12,7 +12,7 @@ public class UpdateAction extends Akcija{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		MainFrame.getInstance().dispatchEvent(new WindowEvent(MainFrame.getInstance(), WindowEvent.WINDOW_CLOSING));
+		//MainFrame.getInstance().dispatchEvent(new WindowEvent(MainFrame.getInstance(), WindowEvent.WINDOW_CLOSING));
 		
 	}
 
