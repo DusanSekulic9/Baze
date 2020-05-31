@@ -13,7 +13,7 @@ public class TreeListener implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		if(e.getClickCount() == 2) {
 			var o = MainFrame.getInstance().getWorkspaceTree().getSelectionPath().getLastPathComponent();
-			if (o instanceof Entity) {
+			if (o != null && o instanceof Entity) {
 				Entity entity = (Entity) o;
 				entity.show();
 			}

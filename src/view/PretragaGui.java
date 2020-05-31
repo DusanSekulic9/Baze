@@ -1,115 +1,120 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
+import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import javafx.scene.layout.FlowPane;
+import enums.AttributeType;
+import main.AppCore;
+import model.Attribute;
+import model.Entity;
+import nodes.DBNode;
 
 public class PretragaGui extends JFrame{
 	
 	
-	private ArrayList<FlowPane> paneli;
-	private JComboBox<String> kolone;
-	private JComboBox<String> operacije;
-	private JComboBox<String> znakovi;
-	private JButton like;
-	private JTextField broj;
+	private ArrayList<JPanel> paneli = new ArrayList<JPanel>();
+	private ArrayList<JComboBox<Attribute>> kolone = new ArrayList<JComboBox<Attribute>>();
+	private ArrayList<JComboBox<String>> operacije = new ArrayList<JComboBox<String>>();
+	private ArrayList<JComboBox<String>> znakovi = new ArrayList<JComboBox<String>>();
+	//private JButton like;
+	private ArrayList<JTextField> broj = new ArrayList<JTextField>();
+	int index = 0;
 
-	private FlowLayout experimentLayout = new FlowLayout();
+	JPanel panel = new JPanel();
 	
-	public PretragaGui() {
+	private Entity entity;
+	
+	public PretragaGui(String name) {
 		setTitle("Pretraga");
 		setSize(800, 550);
 		setLocationRelativeTo(null);
+		entity = AppCore.getInstance().getIr().getEntity(name);
+		this.setLayout(new GridLayout());
 	}
 	
 	public void inicijalizacija() {
-		kolone = new JComboBox<>();
-		operacije = new JComboBox<>();
-		like = new JButton("Like");
-		znakovi = new JComboBox<String>();
-		broj = new JTextField();
+		kolone.add(new JComboBox<>());
+		for(DBNode node : entity.getChildren()) {
+			kolone.get(index).addItem((Attribute) node);
+		}
+		operacije.add(new JComboBox<>());
+		kolone.get(index).addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Attribute at = (Attribute) kolone.get(index).getSelectedItem();
+				operacije.get(index).removeAllItems();
+				if(at.getAttributeType().equals(AttributeType.VARCHAR) || at.getAttributeType().equals(AttributeType.CHAR)) {
+					operacije.get(index).addItem(new String("like"));
+				}else if(at.getAttributeType().equals(AttributeType.DATETIME)){
+					operacije.get(index).addItem("=");
+				}else {
+					operacije.get(index).addItem("=");
+					operacije.get(index).addItem("<");
+					operacije.get(index).addItem(">");
+				}
+			}
+		});
+		//like = new JButton("Like");
+		znakovi.add(new JComboBox<String>());
+		znakovi.get(index).addItem("AND");
+		znakovi.get(index).addItem("OR");
+		znakovi.get(index).addItem("FINNISH");
+		znakovi.get(index).addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String selected = (String) znakovi.get(index).getSelectedItem();
+				if(selected.equalsIgnoreCase("finnish")) {
+					//appcore.getinstance.search
+				}else {
+					makeNewSet();
+				}
+			}
+		});
+		broj.add(new JTextField());
+		broj.get(index).setPreferredSize(new Dimension(50, 30));
 	}
 	
-	public void dodaj() {
-		JPanel panel = new JPanel();
-		panel.setLayout(experimentLayout);
-		experimentLayout.setAlignment(FlowLayout.TRAILING);
-		JPanel controls = new JPanel();
-		controls.setLayout(new FlowLayout());
-		 		
-		panel.add(kolone);
-		panel.add(operacije);
-		panel.add(broj);
-		panel.add(like);
-		panel.add(znakovi);
-		this.add
+	protected void makeNewSet() {
+		index++;
+		inicijalizacija();
+		paneli.add(new JPanel());
+		dodaj(paneli.get(index));
+	}
 
+	public void dodaj(JPanel panel) {
+		//flowPane.setAlignment(FlowLayout.CENTER);
+//		JPanel controls = new JPanel();
+//		controls.setLayout(new FlowLayout());
+		
+		if(paneli.isEmpty()) {
+			paneli.add(panel);
+		}
+		 		
+		panel.add(kolone.get(index));
+		panel.add(operacije.get(index));
+		panel.add(broj.get(index));
+		//panel.add(like);
+		panel.add(znakovi.get(index));
+		this.add(panel,BorderLayout.CENTER);
 		
 	}
 
-	public JComboBox<String> getKolone() {
-		return kolone;
-	}
-
-	public void setKolone(JComboBox<String> kolone) {
-		this.kolone = kolone;
-	}
-
-	public JComboBox<String> getOperacije() {
-		return operacije;
-	}
-
-	public void setOperacije(JComboBox<String> operacije) {
-		this.operacije = operacije;
-	}
-
-	public JButton getLike() {
-		return like;
-	}
-
-	public void setLike(JButton like) {
-		this.like = like;
-	}
-
-	public JTextField getBroj() {
-		return broj;
-	}
-
-	public void setBroj(JTextField broj) {
-		this.broj = broj;
-	}
-
-	public ArrayList<FlowPane> getPaneli() {
+	public ArrayList<JPanel> getPaneli() {
 		return paneli;
 	}
 
-	public void setPaneli(ArrayList<FlowPane> paneli) {
-		this.paneli = paneli;
-	}
-
-	public JComboBox<String> getZnakovi() {
-		return znakovi;
-	}
-
-	public void setZnakovi(JComboBox<String> znakovi) {
-		this.znakovi = znakovi;
-	}
-
-	public FlowLayout getExperimentLayout() {
-		return experimentLayout;
-	}
-
-	public void setExperimentLayout(FlowLayout experimentLayout) {
-		this.experimentLayout = experimentLayout;
-	}
 
 	
 }
