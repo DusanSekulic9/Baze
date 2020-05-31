@@ -80,10 +80,21 @@ public class MSSQLRepository implements Repository{
                     String columnType = columns.getString("TYPE_NAME");
                     String isNullable = columns.getString("IS_NULLABLE");
                     String hasDefault = columns.getString("COLUMN_DEF");
+                    boolean domainValue = true;
+                    AttributeType[] types = AttributeType.values();
+                    for(AttributeType att : types) {
+                    	if(columnType.toUpperCase().equalsIgnoreCase(att.toString())) {
+                    		domainValue = false;
+                    		break;
+                    	}
+                    }
                     int columnSize = Integer.parseInt(columns.getString("COLUMN_SIZE"));
                     Attribute attribute = new Attribute(columnName, newTable, AttributeType.valueOf(columnType.toUpperCase()), columnSize, isNullable);
                     if(hasDefault != null) {
                     	attribute.addNode(new AttributeConstraint("IS_DEFAULT", attribute, ConstraintType.DEFAULT_VALUE));
+                    }
+                    if(domainValue) {
+                    	attribute.addNode(new AttributeConstraint("DOMAIN_VALUE", attribute, ConstraintType.DOMAIN_VALUE));
                     }
                     newTable.addNode(attribute);
                     //domain value
@@ -186,5 +197,40 @@ public class MSSQLRepository implements Repository{
 
         return rows;
     }
+
+	@Override
+	public List<Row> search(String from) {
+		
+		 List<Row> rows = new ArrayList<>();
+		 
+		 try{
+	            this.initConnection();
+
+	            String query = "SELECT * FROM " + from;
+	            PreparedStatement preparedStatement = connection.prepareStatement(query);
+	            ResultSet rs = preparedStatement.executeQuery();
+
+	            while (rs.next()){
+
+	                Row row = new Row();
+	                row.setName(from);
+
+	                ResultSetMetaData resultSetMetaData = rs.getMetaData();
+	                for (int i = 1; i<=resultSetMetaData.getColumnCount(); i++){
+	                    row.addField(resultSetMetaData.getColumnName(i), rs.getString(i));
+	                }
+	                rows.add(row);
+
+	            }
+	        }
+	        catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        finally {
+	            this.closeConnection();
+	        }
+
+	        return rows;
+	}
 
 }

@@ -11,5 +11,5 @@ public interface Repository {
 
 	List<Row> get(String tableName);
 	
-	
+	List<Row> search(String tableName);
 }

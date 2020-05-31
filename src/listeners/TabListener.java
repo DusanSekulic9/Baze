@@ -17,9 +17,11 @@ public class TabListener implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		ScrollPane scroll = (ScrollPane) MainFrame.getInstance().getTaboviGore().getSelectedComponent();
-		
-		MainFrame.getInstance().updateUp(AppCore.getInstance().getIr().getEntity(scroll.getName()));
+		if(MainFrame.getInstance().getTaboviGore().getTabCount() > 0) {
+			ScrollPane scroll = (ScrollPane) MainFrame.getInstance().getTaboviGore().getSelectedComponent();
+			MainFrame.getInstance().updateUp(AppCore.getInstance().getIr().getEntity(scroll.getName()));
+		}
+		return;
 	}
 
 	@Override

@@ -35,6 +35,7 @@ public class AppCore extends PublisherImplementation{
 		settingsImplementation.addParameter("mssql_database", Constants.MSSQL_DATABASE);
 		settingsImplementation.addParameter("mssql_username", Constants.MSSQL_USERNAME);
 		settingsImplementation.addParameter("mssql_password", Constants.MSSQL_PASSWORD);
+		DatabaseImplementation baza = (DatabaseImplementation) database;
 		return settingsImplementation;
 	}
 	
