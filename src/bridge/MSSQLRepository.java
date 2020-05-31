@@ -182,7 +182,25 @@ public class MSSQLRepository implements Repository{
 
                 ResultSetMetaData resultSetMetaData = rs.getMetaData();
                 for (int i = 1; i<=resultSetMetaData.getColumnCount(); i++){
-                    row.addField(resultSetMetaData.getColumnName(i), rs.getString(i));
+                	String type = resultSetMetaData.getColumnTypeName(i);
+                	switch(type) {
+                	case "varchar":
+                		row.addField(resultSetMetaData.getColumnName(i), rs.getString(i));
+                		break;
+                	case "float":
+                		row.addField(resultSetMetaData.getColumnName(i), rs.getFloat(i));
+                		break;
+                	case "numeric":
+                		row.addField(resultSetMetaData.getColumnName(i), rs.getInt(i));
+                		break;
+                	case "char":
+                		row.addField(resultSetMetaData.getColumnName(i), rs.getString(i));
+                		break;
+                	case "datetime":
+                		row.addField(resultSetMetaData.getColumnName(i), rs.getDate(i));
+                		break;
+                		
+                	}
                 }
                 rows.add(row);
 
